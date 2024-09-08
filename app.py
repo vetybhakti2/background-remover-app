@@ -3,32 +3,34 @@ from PIL import Image
 from rembg import remove
 import io
 
-# Judul Aplikasi
+# Application title
 st.title("Background Remover")
 
-# Deskripsi Aplikasi
-st.write("Upload the image you want to remove the background and get the result.")
+# Application description
+st.write("Upload images to remove their backgrounds and get the results.")
 
-# File Upload
-uploaded_file = st.file_uploader("Select image", type=["jpg", "jpeg", "png"])
+# File upload for multiple files
+uploaded_files = st.file_uploader("Choose images", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
-if uploaded_file is not None:
-    # Baca gambar yang di-upload
-    image = Image.open(uploaded_file)
+if uploaded_files is not None:
+    for uploaded_file in uploaded_files:
+        # Read the uploaded image
+        image = Image.open(uploaded_file)
 
-    # Tampilkan gambar asli
-    st.image(image, caption="Original Image", use_column_width=True)
+        # Display the original image
+        st.image(image, caption=f"Original Image: {uploaded_file.name}", use_column_width=True)
 
-    # Menghapus background
-    result = remove(image)
+        # Spinner to show processing
+        with st.spinner(f'Removing background from {uploaded_file.name}, please wait...'):
+            # Remove background
+            result = remove(image)
 
-    # Menampilkan gambar yang sudah di-remove background-nya
-    st.image(result, caption="Image Without Background", use_column_width=True)
+        # Display the image with the background removed
+        st.image(result, caption=f"Image Without Background: {uploaded_file.name}", use_column_width=True)
 
-    # Tombol untuk mengunduh gambar hasil
-    img_byte_arr = io.BytesIO()
-    result.save(img_byte_arr, format='PNG')
-    img_byte_arr = img_byte_arr.getvalue()
+        # Button to download the resulting image
+        img_byte_arr = io.BytesIO()
+        result.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
 
-    st.download_button(label="Download Image", data=img_byte_arr, file_name="output.png", mime="image/png")
-    
+        st.download_button(label=f"Download {uploaded_file.name}", data=img_byte_arr, file_name=f"{uploaded_file.name.split('.')[0]}_output.png", mime="image/png")
