@@ -1,13 +1,13 @@
 # Background Remover App
 
-Aplikasi ini memungkinkan pengguna untuk menghapus background dari gambar menggunakan Streamlit dan Rembg.
+This app allows users to remove backgrounds from images using Streamlit and Rembg.
 
-## Cara Menggunakan
-1. Install dependencies dengan `pip install -r requirements.txt`.
-2. Jalankan aplikasi dengan `streamlit run app.py`.
-3. Upload gambar dan download hasilnya tanpa background.
+## How to use
+1. Install the dependencies with `pip install -r requirements.txt`.
+2. Run the application with `streamlit run app.py`.
+3. Upload the image and download the result without background.
 
-## Dependensi
+## Dependencies
 - streamlit
 - pillow
 - rembg
