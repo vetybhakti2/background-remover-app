@@ -3,10 +3,20 @@ from PIL import Image
 from rembg import remove
 import io
 
-# Application title
-st.title("Background Remover")
+# Layout with two columns
+col1, col2 = st.columns([1, 5])  # Adjust the ratio as needed
+with col1:
+    # Display an image on the left
+    logo = Image.open("/Users/vetybhakti/Documents/Vety/background-remover-app/assets/image.png")  # Replace with the path to your logo or image
+    st.image(logo, width=100)  # Adjust the width as needed
+
+with col2:
+    # Application title on the right
+    st.title("Background Remover App")
+    st.write("by Vety Bhakti Lestari")
 
 # Application description
+st.write("-------------------------------------------------------------")
 st.write("Upload images to remove their backgrounds and get the results.")
 
 # File upload for multiple files
